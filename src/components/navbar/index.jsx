@@ -5,7 +5,7 @@ const inactiveLinkStyle = "hover:text-blue-400"; // Estilos para links inactivos
 
 const Navbar = () => {
     return (
-        <nav className='flex justify-between items-center fixed z-10 w-full py-5 px-8 text-sm font-light bg-white shadow-md'>
+        <nav className='flex justify-between items-center fixed top-0 z-10 w-full py-5 px-8 text-sm font-light bg-white shadow-md'>
             <ul className='flex items-center gap-3'>
                 <li className='font-semibold text-lg'>
                     <NavLink to="/" end >
