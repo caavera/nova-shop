@@ -1,9 +1,13 @@
+import { useContext } from 'react'
+import { ShoppingCartContext } from '../../Context'
 import { NavLink } from 'react-router';
 
 const activeLinkStyle = "underline underline-offset text-blue-600 font-semibold"; // Definimos los estilos para el link activo
 const inactiveLinkStyle = "hover:text-blue-400"; // Estilos para links inactivos
 
 const Navbar = () => {
+    const { count } = useContext(ShoppingCartContext);
+
     return (
         <nav className='flex justify-between items-center fixed top-0 z-10 w-full py-5 px-8 text-sm font-light bg-white shadow-md'>
             <ul className='flex items-center gap-3'>
@@ -63,7 +67,7 @@ const Navbar = () => {
                     </NavLink>
                 </li>
                 <li>
-                    Kart 0
+                    Kart {count}
                 </li>
             </ul>
         </nav>
