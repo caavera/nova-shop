@@ -24,7 +24,7 @@ function Home() {
   return (
     <Layout>
       Home
-      <div className='grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-screen-lg space-y-3 justify-center'>
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-screen-lg mx-auto place-items-center">
         {
           items?.map( item => (
             <Card key={item.id} product={item} />

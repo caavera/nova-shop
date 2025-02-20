@@ -1,77 +1,113 @@
-import { useContext } from 'react'
-import { ShoppingBagIcon } from "@heroicons/react/24/solid"; 
-import { ShoppingCartContext } from '../../Context'
+import { useContext, useState } from 'react';
+import { ShoppingBagIcon, Bars3Icon, XMarkIcon, ShoppingCartIcon } from "@heroicons/react/24/solid"; 
+import { ShoppingCartContext } from '../../Context';
 import { NavLink } from 'react-router';
 
-const activeLinkStyle = "underline underline-offset text-blue-600 font-semibold"; // Definimos los estilos para el link activo
-const inactiveLinkStyle = "hover:text-blue-400"; // Estilos para links inactivos
+const activeLinkStyle = "underline underline-offset-4 text-blue-600 font-semibold transition-colors duration-200"; 
+const inactiveLinkStyle = "hover:text-blue-500 transition-colors duration-200"; 
 
 const Navbar = () => {
     const { count } = useContext(ShoppingCartContext);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <nav className='flex justify-between items-center fixed top-0 z-10 w-full py-5 px-8 text-sm font-light bg-white shadow-md'>
-            <ul className='flex items-center gap-3'>
-                <li className='font-semibold text-lg'>
-                    <NavLink to="/" end >
+        <nav className="flex justify-between items-center fixed top-0 z-20 w-full py-4 px-6 text-sm font-light bg-white/80 backdrop-blur-md shadow-md">
+            {/* Contenedor izquierdo - Logo + Categorías */}
+            <div className="flex items-center gap-6">
+                {/* Logo y Nombre con Icono */}
+                <div className="flex items-center gap-2 font-semibold text-lg hover:scale-105 transition-transform cursor-pointer ml-3">
+                    <ShoppingCartIcon className="w-7 h-7 text-blue-600" />
+                    <NavLink to="/" end>
                         NovaShop
                     </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/" end className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        All
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/clothes" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        Clothes
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/electronics" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        Electronics
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/furnitures" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        Furnitures
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/toys" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        Toys
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/others" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        Others
-                    </NavLink>
-                </li>
-            </ul>
-            <ul className='flex items-center gap-3'>
-                <li className='text-black/60'>
-                    veracar111@gmail.com
-                </li>
-                <li>
+                </div>
+
+                {/* Menú de categorías - Más cercano al logo en pantallas grandes */}
+                <ul className="hidden lg:flex items-center gap-4">
+                    { ["All", "Clothes", "Electronics", "Furnitures", "Toys", "Others"].map((category) => (
+                        <li key={category}>
+                            <NavLink 
+                                to={category === "All" ? "/" : `/${category.toLowerCase()}`} 
+                                className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                            >
+                                {category}
+                            </NavLink>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            {/* Icono de menú hamburguesa - Mobile */}
+            <button 
+                className="absolute left-3 lg:hidden focus:outline-none"
+                onClick={() => setMenuOpen(!menuOpen)}
+            >
+                {menuOpen ? <XMarkIcon className="w-7 h-7"/> : <Bars3Icon className="w-7 h-7"/>}
+            </button>
+
+            {/* Menú desplegable en móvil */}
+            {menuOpen && (
+                <div className="absolute top-14 left-0 w-full bg-white shadow-md flex flex-col items-center py-4 lg:hidden">
+                    {/* Categorías */}
+                    <ul className="w-full text-center border-b pb-3">
+                        { ["All", "Clothes", "Electronics", "Furnitures", "Toys", "Others"].map((category) => (
+                            <li key={category} className="py-2">
+                                <NavLink 
+                                    to={category === "All" ? "/" : `/${category.toLowerCase()}`} 
+                                    className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    {category}
+                                </NavLink>
+                            </li>
+                        ))}
+                    </ul>
+                    {/* Gestión de cuenta y órdenes */}
+                    <ul className="w-full text-center pt-3 sm:hidden">
+                        <li className="py-2">
+                            <p className="text-black/60">veracar111@gmail.com</p>
+                        </li>
+                        <li className="py-2">
+                            <NavLink to="/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                                My Orders
+                            </NavLink>
+                        </li>
+                        <li className="py-2">
+                            <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                                My Account
+                            </NavLink>
+                        </li>
+                        <li className="py-2">
+                            <NavLink to="/sign-in" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                                Sign In
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>
+            )}
+
+            {/* Contenedor derecho - Gestión de cuenta + Carrito */}
+            <div className="flex items-center gap-6">
+                {/* Sección de usuario y carrito - Se muestra en pantallas medianas en adelante */}
+                <div className="hidden sm:flex items-center gap-4">
+                    <p className="text-black/60">veracar111@gmail.com</p>
                     <NavLink to="/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                         My Orders
                     </NavLink>
-                </li>
-                <li>
                     <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                         My Account
                     </NavLink>
-                </li>
-                <li>
                     <NavLink to="/sign-in" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                         Sign In
                     </NavLink>
-                </li>
-                <li className='flex gap-0.5 items-center'>
-                    <ShoppingBagIcon className="w-6 h-6"/> 
-                    <p className='text-xs'>{count}</p>
-                </li>
-            </ul>
+                </div>
+
+                {/* Carrito - Siempre visible */}
+                <div className="flex gap-1 items-center cursor-pointer hover:scale-105 transition-transform">
+                    <ShoppingBagIcon className="w-6 h-6" />
+                    <p className="text-xs">{count}</p>
+                </div>
+            </div>
         </nav>
     );
 };
