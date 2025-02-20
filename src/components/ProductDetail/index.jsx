@@ -14,7 +14,7 @@ const ProductDetail = () => {
             className="fixed right-0 top-[68px] h-[calc(100vh-68px)] w-96 bg-white shadow-xl border-l border-gray-200 rounded-l-lg flex flex-col overflow-hidden"
         >
             {/* Header */}
-            <div className='flex justify-between items-center p-6 bg-gray-100 border-b border-gray-300'>
+            <div className='w-full h-12 flex justify-between items-center p-6 bg-gray-50 border-b border-gray-300'>
                 <h2 className='font-semibold text-xl text-gray-700'>Product Detail</h2>
                 <button
                     className='cursor-pointer rounded-full hover:bg-red-500 hover:text-white p-1 transition-all duration-300'
@@ -38,7 +38,7 @@ const ProductDetail = () => {
                 <span className='font-semibold text-2xl text-gray-800 mb-2'>
                     {productToShow?.title}
                 </span>
-                <span className='font-semibold text-lg text-blue-600 mb-1'>
+                <span className='font-semibold text-lg mb-1'>
                     ${productToShow?.price}
                 </span>
                 <p className='font-light text-sm text-gray-600 leading-relaxed'>

@@ -3,11 +3,25 @@ import { ShoppingCartContext } from '../../Context'
 import { PlusIcon } from "@heroicons/react/24/solid"; 
 
 const Card = ({ product }) => {
-    const { count, setCount, openProductDetail, setProductToShow } = useContext(ShoppingCartContext);
+    const { 
+        count, 
+        setCount, 
+        openProductDetail, 
+        setProductToShow,
+        cartProducts,
+        setCartProducts,
+    } = useContext(ShoppingCartContext);
 
     const showProduct = (productDetail) => {
         setProductToShow(productDetail); // Se muestran los detalles del producto
         openProductDetail();
+    }
+
+    const addProductToCart = (productData) => {
+        // Incrementar el contador del carrito
+        setCount(count + 1);
+        // Agregar el producto al carrito
+        setCartProducts([...cartProducts, productData]);
     }
 
     return (
@@ -26,7 +40,7 @@ const Card = ({ product }) => {
                     className="absolute top-2 right-2 bg-white hover:bg-blue-300 shadow-md flex items-center justify-center w-6 h-6 rounded-full p-1"
                     onClick={(e) => {
                         e.stopPropagation(); // Evita que el evento se propague hacia el div principal
-                        setCount(count + 1); // Incrementa el contador
+                        addProductToCart(product); // Incrementa el contador
                     }}
                 >
                     <PlusIcon className="w-6 h-6 text-black"/>
