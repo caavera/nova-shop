@@ -6,10 +6,12 @@ const Card = ({ product }) => {
     const { 
         count, 
         setCount, 
-        openProductDetail, 
+        openProductDetail,
+        closeProductDetail, 
         setProductToShow,
         cartProducts,
         setCartProducts,
+        openCheckoutSideMenu,
     } = useContext(ShoppingCartContext);
 
     const showProduct = (productDetail) => {
@@ -18,10 +20,10 @@ const Card = ({ product }) => {
     }
 
     const addProductToCart = (productData) => {
-        // Incrementar el contador del carrito
-        setCount(count + 1);
-        // Agregar el producto al carrito
-        setCartProducts([...cartProducts, productData]);
+        setCount(count + 1); // Incrementar el contador del carrito
+        setCartProducts([...cartProducts, productData]); // Agregar el producto al carrito
+        closeProductDetail(); // Se oculta el detalle del producto
+        openCheckoutSideMenu(); // se muestra el checkout side menu
     }
 
     return (
