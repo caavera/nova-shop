@@ -13,7 +13,7 @@ const Navbar = () => {
     return (
         <nav className="flex justify-between items-center fixed top-0 z-20 w-full py-4 px-6 text-sm font-light bg-white/80 backdrop-blur-md shadow-md">
             {/* Contenedor izquierdo - Logo + Categorías */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 ml-1">
                 {/* Logo y Nombre con Icono */}
                 <div className="flex items-center gap-2 font-semibold text-lg hover:scale-105 transition-transform cursor-pointer ml-3">
                     <ShoppingCartIcon className="w-7 h-7 text-blue-600" />
@@ -35,6 +35,29 @@ const Navbar = () => {
                         </li>
                     ))}
                 </ul>
+            </div>
+
+            {/* Contenedor derecho - Gestión de cuenta + Carrito */}
+            <div className="flex items-center gap-6">
+                {/* Sección de usuario y carrito - Se muestra en pantallas medianas en adelante */}
+                <div className="hidden sm:flex items-center gap-4">
+                    <p className="text-black/60">veracar111@gmail.com</p>
+                    <NavLink to="/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                        My Orders
+                    </NavLink>
+                    <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                        My Account
+                    </NavLink>
+                    <NavLink to="/sign-in" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                        Sign In
+                    </NavLink>
+                </div>
+
+                {/* Carrito - Siempre visible */}
+                <div className="flex gap-1 items-center cursor-pointer hover:scale-105 transition-transform">
+                    <ShoppingBagIcon className="w-6 h-6" />
+                    <p className="text-xs">{count}</p>
+                </div>
             </div>
 
             {/* Icono de menú hamburguesa - Mobile */}
@@ -86,28 +109,6 @@ const Navbar = () => {
                 </div>
             )}
 
-            {/* Contenedor derecho - Gestión de cuenta + Carrito */}
-            <div className="flex items-center gap-6">
-                {/* Sección de usuario y carrito - Se muestra en pantallas medianas en adelante */}
-                <div className="hidden sm:flex items-center gap-4">
-                    <p className="text-black/60">veracar111@gmail.com</p>
-                    <NavLink to="/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        My Orders
-                    </NavLink>
-                    <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        My Account
-                    </NavLink>
-                    <NavLink to="/sign-in" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        Sign In
-                    </NavLink>
-                </div>
-
-                {/* Carrito - Siempre visible */}
-                <div className="flex gap-1 items-center cursor-pointer hover:scale-105 transition-transform">
-                    <ShoppingBagIcon className="w-6 h-6" />
-                    <p className="text-xs">{count}</p>
-                </div>
-            </div>
         </nav>
     );
 };
