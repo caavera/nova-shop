@@ -9,7 +9,9 @@ function MyOrder() {
   const {
     order,
   } = useContext(ShoppingCartContext);
-  console.log(order?.slice(-1)[0])
+  
+  const { id } = useParams(); // 📌 Obtiene el ID de la URL
+  const selectedOrder = order.find(order => order.id === id); // 🔥 Encuentra la orden correcta
 
   return (
     <Layout>
@@ -22,7 +24,7 @@ function MyOrder() {
       {/* Order List */}
       <div className='flex flex-col space-y-4 py-4'>
         {
-          order?.slice(-1)[0].products.map(product => (
+          selectedOrder?.products.map(product => (
             <OrderCard
               key={product.id}
               id={product.id}

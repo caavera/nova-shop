@@ -16,6 +16,7 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/my-account" element={<MyAccount />} />
       <Route path="/my-orders" element={<MyOrders />} />
+      <Route path="/my-orders/:id" element={<MyOrder />} />
       <Route path="/my-orders/last" element={<MyOrder />} />
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/*" element={<NotFound />} />

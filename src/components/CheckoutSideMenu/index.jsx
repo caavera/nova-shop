@@ -23,7 +23,7 @@ const CheckoutSideMenu = () => {
 
     const handleCheckout = () => {
         const orderToAdd = {
-            id: Date.now(),
+            id: crypto.randomUUID(), // 🔥 ID único
             title: 'My Order ' + Date().toLocaleString(),
             products: cartProducts,
             totalPrice: getShoppingCartTotalPrice(),
