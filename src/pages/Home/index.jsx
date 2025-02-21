@@ -13,7 +13,6 @@ function Home() {
         if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
         
         const data = await response.json();
-        console.log(data)
         setItems(data);
       } catch (error) {
         console.error('Error fetching products:', error);
