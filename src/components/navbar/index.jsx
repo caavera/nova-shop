@@ -7,7 +7,7 @@ const activeLinkStyle = "underline underline-offset-4 text-blue-600 font-semibol
 const inactiveLinkStyle = "hover:text-blue-500 transition-colors duration-200"; 
 
 const Navbar = () => {
-    const { count } = useContext(ShoppingCartContext);
+    const { count, cartProducts } = useContext(ShoppingCartContext);
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -56,7 +56,7 @@ const Navbar = () => {
                 {/* Carrito - Siempre visible */}
                 <div className="flex gap-1 items-center cursor-pointer hover:scale-105 transition-transform">
                     <ShoppingBagIcon className="w-6 h-6" />
-                    <p className="text-xs">{count}</p>
+                    <p className="text-xs">{ cartProducts.length }</p>
                 </div>
             </div>
 

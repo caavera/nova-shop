@@ -2,12 +2,20 @@ import { useContext } from 'react';
 import { ShoppingCartContext } from '../../Context';
 import { motion } from "framer-motion";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import OrderCard from "../../components/OrderCard";
 
 const CheckoutSideMenu = () => {
     const { 
         closeCheckoutSideMenu, 
         isCheckoutSideMenuOpen,
+        cartProducts,
+        setCartProducts
     } = useContext(ShoppingCartContext);
+
+    const handleDelete = (id) => {
+        const filteredProducts = cartProducts.filter( products => products.id != id)
+        setCartProducts(filteredProducts);
+    }
 
     return (
         <motion.aside 
@@ -26,8 +34,20 @@ const CheckoutSideMenu = () => {
                     <XMarkIcon className="w-6 h-6 text-gray-700" />
                 </button>
             </div>
-            
-            
+            <div className='px-6 overflow-y-scroll'>
+                {
+                    cartProducts.map(product => (
+                        <OrderCard 
+                            key={product.id} 
+                            id={product.id} 
+                            title={product.title} 
+                            price={product.price} 
+                            imageUrl={product.images[0]}
+                            handleDelete={handleDelete}
+                        />
+                    ))
+                }
+            </div>
         </motion.aside>
     );
 };
