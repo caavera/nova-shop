@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Link } from 'react-router';
 import { ShoppingCartContext } from '../../Context';
 import { motion } from "framer-motion";
 import { XMarkIcon } from "@heroicons/react/24/solid";
@@ -10,12 +11,26 @@ const CheckoutSideMenu = () => {
         isCheckoutSideMenuOpen,
         cartProducts,
         setCartProducts,
-        getShoppingCartTotalPrice
+        getShoppingCartTotalPrice,
+        order,
+        setOrder
     } = useContext(ShoppingCartContext);
 
     const handleDelete = (id) => {
         const filteredProducts = cartProducts.filter(product => product.id !== id);
         setCartProducts(filteredProducts);
+    };
+
+    const handleCheckout = () => {
+        const orderToAdd = {
+            id: Date.now(),
+            title: 'My Order ' + Date().toLocaleString(),
+            products: cartProducts,
+            totalPrice: getShoppingCartTotalPrice(),
+            date: new Date().toLocaleString()
+        }
+        setOrder([...order, orderToAdd])
+        setCartProducts([])
     };
 
     return (
@@ -60,9 +75,14 @@ const CheckoutSideMenu = () => {
                     <span className='text-gray-700'>Total:</span>
                     <span className='font-medium text-2xl'>${getShoppingCartTotalPrice()}</span>
                 </p>
-                <button className="w-full mt-4 py-2 text-white bg-blue-600 hover:bg-blue-700 transition-all duration-300 font-medium rounded-lg shadow-md">
-                    Checkout
-                </button>
+                <Link to="/my-orders/last">
+                    <button 
+                        className="w-full mt-4 py-2 text-white bg-black hover:bg-blue-700 transition-all duration-300 font-medium rounded-lg shadow-md"
+                        onClick={() => handleCheckout()}
+                    >
+                        Checkout
+                    </button>
+                </Link>
             </div>
         </motion.aside>
     );

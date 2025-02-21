@@ -45,7 +45,7 @@ const Navbar = () => {
                 {/* Sección de usuario y carrito - Se muestra en pantallas medianas en adelante */}
                 <div className="hidden sm:flex items-center gap-4">
                     <p className="text-black/60">veracar111@gmail.com</p>
-                    <NavLink to="/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                    <NavLink to="/my-orders" end className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                         My Orders
                     </NavLink>
                     <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>

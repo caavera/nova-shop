@@ -24,6 +24,9 @@ export const ShoppingCartProvider = ({ children }) => {
         return cartProducts.reduce((sum, product) => sum + product.price, 0);
     }
 
+    // Shopping Cart - Order
+    const [order, setOrder] = useState([]);
+
     return (
         <ShoppingCartContext.Provider value={{ 
             cartProducts,
@@ -37,6 +40,8 @@ export const ShoppingCartProvider = ({ children }) => {
             openCheckoutSideMenu,
             closeCheckoutSideMenu,
             getShoppingCartTotalPrice,
+            order,
+            setOrder
         }}>
             {children}
         </ShoppingCartContext.Provider>
