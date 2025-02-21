@@ -9,13 +9,14 @@ const CheckoutSideMenu = () => {
         closeCheckoutSideMenu, 
         isCheckoutSideMenuOpen,
         cartProducts,
-        setCartProducts
+        setCartProducts,
+        getShoppingCartTotalPrice
     } = useContext(ShoppingCartContext);
 
     const handleDelete = (id) => {
-        const filteredProducts = cartProducts.filter( products => products.id != id)
+        const filteredProducts = cartProducts.filter(product => product.id !== id);
         setCartProducts(filteredProducts);
-    }
+    };
 
     return (
         <motion.aside 
@@ -25,17 +26,19 @@ const CheckoutSideMenu = () => {
             className="fixed right-0 top-[68px] h-[calc(100vh-68px)] w-96 bg-white shadow-xl border-l border-gray-200 rounded-l-lg flex flex-col overflow-hidden"
         >
             {/* Header */}
-            <div className='w-full h-12 flex justify-between items-center p-6 bg-gray-50 border-b border-gray-300'>
+            <div className='w-full h-14 flex justify-between items-center px-6 bg-gray-50 border-b border-gray-300 shadow-sm'>
                 <h2 className='font-semibold text-xl text-gray-700'>My Order</h2>
                 <button
-                    className='cursor-pointer rounded-full hover:bg-red-500 hover:text-white p-1 transition-all duration-300'
+                    className='cursor-pointer rounded-full hover:bg-red-500 hover:text-white p-2 transition-all duration-300'
                     onClick={() => closeCheckoutSideMenu()}
                 >
                     <XMarkIcon className="w-6 h-6 text-gray-700" />
                 </button>
             </div>
-            <div className='px-6 overflow-y-scroll'>
-                {
+            
+            {/* Order List */}
+            <div className='px-6 overflow-y-auto flex-1 space-y-4 py-4'>
+                {cartProducts.length > 0 ? (
                     cartProducts.map(product => (
                         <OrderCard 
                             key={product.id} 
@@ -46,7 +49,20 @@ const CheckoutSideMenu = () => {
                             handleDelete={handleDelete}
                         />
                     ))
-                }
+                ) : (
+                    <p className="text-gray-500 text-center">Your cart is empty.</p>
+                )}
+            </div>
+            
+            {/* Footer */}
+            <div className='px-6 py-4 bg-gray-50 border-t border-gray-300 shadow-sm'>
+                <p className='flex justify-between items-center text-lg font-semibold'>
+                    <span className='text-gray-700'>Total:</span>
+                    <span className='font-medium text-2xl'>${getShoppingCartTotalPrice()}</span>
+                </p>
+                <button className="w-full mt-4 py-2 text-white bg-blue-600 hover:bg-blue-700 transition-all duration-300 font-medium rounded-lg shadow-md">
+                    Checkout
+                </button>
             </div>
         </motion.aside>
     );

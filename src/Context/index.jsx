@@ -19,6 +19,11 @@ export const ShoppingCartProvider = ({ children }) => {
     // Product detail - show product
     const [productToShow, setProductToShow] = useState({});
 
+    // Shopping Cart - total price
+    const getShoppingCartTotalPrice = () => {
+        return cartProducts.reduce((sum, product) => sum + product.price, 0);
+    }
+
     return (
         <ShoppingCartContext.Provider value={{ 
             cartProducts,
@@ -31,6 +36,7 @@ export const ShoppingCartProvider = ({ children }) => {
             isCheckoutSideMenuOpen,
             openCheckoutSideMenu,
             closeCheckoutSideMenu,
+            getShoppingCartTotalPrice,
         }}>
             {children}
         </ShoppingCartContext.Provider>

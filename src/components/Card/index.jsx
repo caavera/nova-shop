@@ -10,10 +10,12 @@ const Card = ({ product }) => {
         cartProducts,
         setCartProducts,
         openCheckoutSideMenu,
+        closeCheckoutSideMenu
     } = useContext(ShoppingCartContext);
 
     const showProduct = (productDetail) => {
         setProductToShow(productDetail); // Se muestran los detalles del producto
+        closeCheckoutSideMenu();
         openProductDetail();
     }
 
