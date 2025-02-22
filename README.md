@@ -1,8 +1,66 @@
-# React + Vite
+# 🛍️ Nova-Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Nova-Shop Banner](https://user-images.githubusercontent.com/00000000/placeholder-image.png)  
+⚡ **E-commerce moderno** desarrollado con **React + Vite**, con integración de búsqueda, filtrado por categorías y carrito de compras.
 
-Currently, two official plugins are available:
+## 🌟 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✅ **Interfaz elegante y responsiva** con **Tailwind CSS**  
+✅ **Filtrado de productos** por nombre y categoría  
+✅ **Carrito de compras** interactivo con vista previa  
+✅ **Checkout dinámico** con almacenamiento de órdenes  
+✅ **Desplegado en GitHub Pages** 🚀  
+
+---
+
+## 🎥 **Demo en Vivo**
+👉 **[Accede a Nova-Shop aquí](https://albertoBetancourt.github.io/nova-shop/)**  
+
+---
+
+## 🛠️ **Tecnologías Usadas**
+- ⚛️ **React 19 + Vite** 🚀 (Frontend ultrarrápido)
+- 🎨 **Tailwind CSS** (Estilos modernos y flexibles)
+- 🛒 **React Context API** (Manejo del estado global)
+- 🔄 **Framer Motion** (Animaciones fluidas)
+- 🌐 **Fake Store API** (Base de datos de productos)
+
+---
+
+## 🚀 **Instalación y Uso**
+
+Clona el repositorio:
+
+```
+git clone https://github.com/albertoBetancourt/nova-shop.git
+cd nova-shop
+```
+
+Instala las dependencias:
+
+```
+npm install
+```
+
+Ejecuta el servidor de desarrollo:
+
+```
+npm run dev
+```
+
+Abre en tu navegador:  
+👉 `http://localhost:5173/`
+
+---
+
+## 👨‍💻 **Autor**
+📌 **Alberto Betancourt**  
+🚀 Desarrollador FullStack | JavaScript & React Enthusiast  
+ 
+🐙 [GitHub](https://github.com/albertoBetancourt) 
+
+---
+
+## 📜 **Licencia**
+Este proyecto está bajo la licencia **MIT**.  
+¡Siéntete libre de usarlo, mejorarlo y compartirlo! 😊
