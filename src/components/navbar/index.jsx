@@ -22,7 +22,7 @@ const Navbar = () => {
             <div className="flex items-center gap-6 ml-1">
                 {/* Logo y Nombre con Icono */}
                 <div className="flex items-center gap-2 font-semibold text-lg hover:scale-105 transition-transform cursor-pointer ml-3">
-                    <ShoppingCartIcon className="w-7 h-7 text-blue-600" />
+                    <ShoppingBagIcon className="w-7 h-7 text-blue-600" />
                     <NavLink to="/nova-shop/#/" end onClick={() => handleCategoryClick("All")}>
                         NovaShop
                     </NavLink>
@@ -64,7 +64,7 @@ const Navbar = () => {
                     className="flex gap-1 items-center cursor-pointer hover:scale-105 transition-transform"
                     onClick={openCheckoutSideMenu}
                 >
-                    <ShoppingBagIcon className="w-6 h-6" />
+                    <ShoppingCartIcon className="w-6 h-6" />
                     <p className="text-xs">{ cartProducts.length }</p>
                 </div>
             </div>

@@ -27,7 +27,7 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <ShoppingCartProvider>
-      <HashRouter basename="/nova-shop"> {/* Cambiado de BrowserRouter a HashRouter */}
+      <HashRouter > {/* Cambiado de BrowserRouter a HashRouter */}
         <AppRoutes />
         <Navbar />
         <CheckoutSideMenu />
