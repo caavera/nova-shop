@@ -1,6 +1,5 @@
 # 🛍️ Nova-Shop
-
-![Nova-Shop Banner](https://user-images.githubusercontent.com/00000000/placeholder-image.png)  
+  
 ⚡ **E-commerce moderno** desarrollado con **React + Vite**, con integración de búsqueda, filtrado por categorías y carrito de compras.
 
 ## 🌟 Características
