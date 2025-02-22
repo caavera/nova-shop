@@ -17,9 +17,6 @@ const CheckoutSideMenu = () => {
         setSearchByTitle
     } = useContext(ShoppingCartContext);
 
-    // Obtener el `basename` dinámicamente
-    const base = import.meta.env.BASE_URL;
-
     const handleDelete = (id) => {
         const filteredProducts = cartProducts.filter(product => product.id !== id);
         setCartProducts(filteredProducts);
@@ -32,11 +29,11 @@ const CheckoutSideMenu = () => {
             products: cartProducts,
             totalPrice: getShoppingCartTotalPrice(),
             date: new Date().toLocaleString()
-        };
-        setOrder([...order, orderToAdd]);
-        setCartProducts([]);
-        setSearchByTitle(null);
-        closeCheckoutSideMenu();
+        }
+        setOrder([...order, orderToAdd])
+        setCartProducts([])
+        setSearchByTitle(null)
+        closeCheckoutSideMenu()
     };
 
     return (
@@ -81,7 +78,7 @@ const CheckoutSideMenu = () => {
                     <span className='text-gray-700'>Total:</span>
                     <span className='font-medium text-2xl'>${getShoppingCartTotalPrice()}</span>
                 </p>
-                <Link to={`${base}my-orders/last`}>
+                <Link to="/my-orders/last">
                     <button 
                         className="w-full mt-4 py-2 text-white bg-black hover:bg-blue-700 transition-all duration-300 font-medium rounded-lg shadow-md"
                         onClick={() => handleCheckout()}

@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router';
-import { ShoppingCartProvider } from '../../Context';
+import {  BrowserRouter,Routes,Route,} from 'react-router';
+import { ShoppingCartProvider } from '../../Context'
 import Home from '../Home';
 import MyAccount from '../MyAccount';
 import MyOrder from '../MyOrder';
@@ -27,12 +27,13 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <ShoppingCartProvider>
-      <BrowserRouter basename="/nova-shop"> {/* Usamos basename para GitHub Pages */}
+      <BrowserRouter>
         <AppRoutes />
-        <Navbar />
+        <Navbar/>
         <CheckoutSideMenu />
       </BrowserRouter>
     </ShoppingCartProvider>  
+    
   );
 };
 
