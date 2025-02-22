@@ -7,7 +7,14 @@ const activeLinkStyle = "underline underline-offset-4 text-blue-600 font-semibol
 const inactiveLinkStyle = "hover:text-blue-500 transition-colors duration-200"; 
 
 const Navbar = () => {
-    const { openCheckoutSideMenu, cartProducts, setSearchByCategory } = useContext(ShoppingCartContext);
+    const { 
+        openCheckoutSideMenu, 
+        cartProducts, 
+        setSearchByCategory,
+        setSignOut,
+        signOut
+    } = useContext(ShoppingCartContext);
+
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -15,6 +22,93 @@ const Navbar = () => {
         setSearchByCategory(category);
         navigate(category === "All" ? "/" : `/category/${category.toLowerCase()}`);
     };
+    
+    // Sign out
+    const sigOut = localStorage.getItem('sign-out')
+    const parsedSignOut = JSON.parse(sigOut)
+    const isUserSignOut = signOut  || parsedSignOut
+
+    const handleSignOut = () => {
+        const stringifiedSignOut = JSON.stringify(true)
+        localStorage.setItem('sign-out', stringifiedSignOut)
+        setSignOut(true)
+    }
+
+    const renderViewDesktop = () => {
+        if (isUserSignOut) {
+            return (
+                <NavLink 
+                    to="/sign-in" 
+                    className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                    onClick={ () => handleSignOut() }
+                >
+                    Sign Out
+                </NavLink>
+            )
+        } else {
+            return (
+                <>
+                    <p className="text-black/60">example@gmail.com</p>
+                    <NavLink to="/my-orders" end className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                        My Orders
+                    </NavLink>
+                    <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                        My Account
+                    </NavLink>
+                    <NavLink 
+                        to="/sign-in" 
+                        className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                        onClick={ () => handleSignOut() }
+                    >
+                        Sign Out
+                    </NavLink>
+                </>
+            )
+        }
+    }
+
+    const renderViewMobile = () => {
+        if (isUserSignOut) {
+            return (
+                <li className="py-2">
+                    <NavLink 
+                        to="/sign-in" 
+                        className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                        onClick={ () => handleSignOut() }
+                    >
+                        Sign Out
+                    </NavLink>
+                </li>
+            )
+        } else {
+            return (
+                <>
+                    <li className="py-2">
+                        <p className="text-black/60">example@gmail.com</p>
+                    </li>
+                    <li className="py-2">
+                        <NavLink to="/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                            My Orders
+                        </NavLink>
+                    </li>
+                    <li className="py-2">
+                        <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                            My Account
+                        </NavLink>
+                    </li>
+                    <li className="py-2">
+                        <NavLink 
+                            to="/sign-in" 
+                            className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                            onClick={ () => handleSignOut() }
+                        >
+                            Sign Out
+                        </NavLink>
+                    </li>
+                </>
+            )
+        }
+    }
 
     return (
         <nav className="flex justify-between items-center fixed top-0 z-20 w-full py-4 px-6 text-sm font-light bg-white/80 backdrop-blur-md shadow-md">
@@ -22,7 +116,7 @@ const Navbar = () => {
             <div className="flex items-center gap-6 ml-1">
                 {/* Logo y Nombre con Icono */}
                 <div className="flex items-center gap-2 font-semibold text-lg hover:scale-105 transition-transform cursor-pointer ml-3">
-                    <ShoppingCartIcon className="w-7 h-7 text-blue-600" />
+                    <ShoppingBagIcon className="w-7 h-7 text-blue-600" />
                     <NavLink to="/" end onClick={() => handleCategoryClick("All")}>
                         NovaShop
                     </NavLink>
@@ -47,16 +141,7 @@ const Navbar = () => {
             {/* Contenedor derecho - Gestión de cuenta + Carrito */}
             <div className="flex items-center gap-6">
                 <div className="hidden sm:flex items-center gap-4">
-                    <p className="text-black/60">veracar111@gmail.com</p>
-                    <NavLink to="/my-orders" end className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        My Orders
-                    </NavLink>
-                    <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        My Account
-                    </NavLink>
-                    <NavLink to="/sign-in" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        Sign In
-                    </NavLink>
+                    {renderViewDesktop()}
                 </div>
 
                 {/* Carrito - Siempre visible */}
@@ -64,7 +149,7 @@ const Navbar = () => {
                     className="flex gap-1 items-center cursor-pointer hover:scale-105 transition-transform"
                     onClick={openCheckoutSideMenu}
                 >
-                    <ShoppingBagIcon className="w-6 h-6" />
+                    <ShoppingCartIcon className="w-6 h-6" />
                     <p className="text-xs">{ cartProducts.length }</p>
                 </div>
             </div>
@@ -100,24 +185,7 @@ const Navbar = () => {
 
                     {/* Gestión de cuenta y órdenes */}
                     <ul className="w-full text-center pt-3 sm:hidden">
-                        <li className="py-2">
-                            <p className="text-black/60">veracar111@gmail.com</p>
-                        </li>
-                        <li className="py-2">
-                            <NavLink to="/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                                My Orders
-                            </NavLink>
-                        </li>
-                        <li className="py-2">
-                            <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                                My Account
-                            </NavLink>
-                        </li>
-                        <li className="py-2">
-                            <NavLink to="/sign-in" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                                Sign In
-                            </NavLink>
-                        </li>
+                        {renderViewMobile()}
                     </ul>
                 </div>
             )}
