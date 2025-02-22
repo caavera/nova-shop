@@ -12,10 +12,13 @@ function MyOrder() {
   // 📌 Si la URL es 'last', tomamos la última orden
   const selectedOrder = id === "last" ? order[order.length - 1] : order.find(order => order.id === id);
 
+  // Obtener el `basename` dinámicamente
+  const base = import.meta.env.BASE_URL;
+
   return (
     <Layout>
       <div className='flex items-center justify-center relative w-80'>
-        <Link to="#/my-orders" className='absolute left-0'>
+        <Link to={`${base}my-orders`} className='absolute left-0'>
           <ChevronLeftIcon className="w-6 h-6 text-black cursor-pointer" />
         </Link>
         <h1 className="text-3xl font-semibold text-gray-800">My Order</h1>

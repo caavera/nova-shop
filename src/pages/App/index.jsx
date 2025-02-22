@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router';
+import { BrowserRouter, Routes, Route } from 'react-router';
 import { ShoppingCartProvider } from '../../Context';
 import Home from '../Home';
 import MyAccount from '../MyAccount';
@@ -27,11 +27,11 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <ShoppingCartProvider>
-      <HashRouter > {/* Cambiado de BrowserRouter a HashRouter */}
+      <BrowserRouter basename="/nova-shop"> {/* Usamos basename para GitHub Pages */}
         <AppRoutes />
         <Navbar />
         <CheckoutSideMenu />
-      </HashRouter>
+      </BrowserRouter>
     </ShoppingCartProvider>  
   );
 };

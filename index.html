@@ -2,12 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/nova-shop/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NovaShop</title>
+    <script>
+      // Redirigir rutas internas en GitHub Pages para soportar `BrowserRouter`
+      (function () {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module">
+      import.meta.env.BASE_URL = "/nova-shop/";
+    </script>
+    <script type="module" src="/nova-shop/src/main.jsx"></script>
   </body>
 </html>

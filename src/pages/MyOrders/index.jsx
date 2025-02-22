@@ -7,6 +7,9 @@ import { Link } from 'react-router';
 function MyOrders() {
   const { order } = useContext(ShoppingCartContext);
 
+  // Obtener el `basename` dinámicamente
+  const base = import.meta.env.BASE_URL;
+
   return (
     <Layout>
       <div className='flex items-center justify-center relative w-full max-w-4xl mx-auto mt-8 mb-6'>
@@ -21,7 +24,7 @@ function MyOrders() {
           {order.map((order, index) => (
             <Link 
               key={index} 
-              to={`#/my-orders/${order.id}`} 
+              to={`${base}my-orders/${order.id}`} 
               className="block"
             >
               <OrdersCard

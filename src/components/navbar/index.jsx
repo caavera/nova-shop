@@ -11,9 +11,12 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
 
+    // Obtener el `basename` dinámicamente
+    const base = import.meta.env.BASE_URL;
+
     const handleCategoryClick = (category) => {
         setSearchByCategory(category);
-        navigate(category === "All" ? "/#/" : `#/category/${category.toLowerCase()}`);
+        navigate(category === "All" ? base : `${base}category/${category.toLowerCase()}`);
     };
 
     return (
@@ -23,7 +26,7 @@ const Navbar = () => {
                 {/* Logo y Nombre con Icono */}
                 <div className="flex items-center gap-2 font-semibold text-lg hover:scale-105 transition-transform cursor-pointer ml-3">
                     <ShoppingBagIcon className="w-7 h-7 text-blue-600" />
-                    <NavLink to="/#/" end onClick={() => handleCategoryClick("All")}>
+                    <NavLink to={base} end onClick={() => handleCategoryClick("All")}>
                         NovaShop
                     </NavLink>
                 </div>
@@ -33,7 +36,7 @@ const Navbar = () => {
                     {["All", "Clothes", "Electronics", "Furniture", "Shoes", "Miscellaneous"].map(category => (
                         <li key={category}>
                             <NavLink 
-                                to={category === "All" ? "/#/" : `#/category/${category.toLowerCase()}`} 
+                                to={category === "All" ? base : `${base}category/${category.toLowerCase()}`} 
                                 className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
                                 onClick={() => handleCategoryClick(category)}
                             >
@@ -48,13 +51,13 @@ const Navbar = () => {
             <div className="flex items-center gap-6">
                 <div className="hidden sm:flex items-center gap-4">
                     <p className="text-black/60">veracar111@gmail.com</p>
-                    <NavLink to="#/my-orders" end className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                    <NavLink to={`${base}my-orders`} className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                         My Orders
                     </NavLink>
-                    <NavLink to="#/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                    <NavLink to={`${base}my-account`} className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                         My Account
                     </NavLink>
-                    <NavLink to="#/sign-in" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                    <NavLink to={`${base}sign-in`} className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                         Sign In
                     </NavLink>
                 </div>
@@ -85,7 +88,7 @@ const Navbar = () => {
                         {["All", "Clothes", "Electronics", "Furniture", "Shoes", "Miscellaneous"].map(category => (
                             <li key={category} className="py-2">
                                 <NavLink 
-                                    to={category === "All" ? "/#/" : `#/category/${category.toLowerCase()}`} 
+                                    to={category === "All" ? base : `${base}category/${category.toLowerCase()}`} 
                                     className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
                                     onClick={() => { 
                                         handleCategoryClick(category);
@@ -104,17 +107,17 @@ const Navbar = () => {
                             <p className="text-black/60">veracar111@gmail.com</p>
                         </li>
                         <li className="py-2">
-                            <NavLink to="#/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                            <NavLink to={`${base}my-orders`} className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                                 My Orders
                             </NavLink>
                         </li>
                         <li className="py-2">
-                            <NavLink to="#/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                            <NavLink to={`${base}my-account`} className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                                 My Account
                             </NavLink>
                         </li>
                         <li className="py-2">
-                            <NavLink to="#/sign-in" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                            <NavLink to={`${base}sign-in`} className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                                 Sign In
                             </NavLink>
                         </li>
