@@ -21,7 +21,7 @@ function MyOrders() {
           {order.map((order, index) => (
             <Link 
               key={index} 
-              to={`/nova-shop/#/my-orders/${order.id}`} 
+              to={`#/my-orders/${order.id}`} 
               className="block"
             >
               <OrdersCard

@@ -15,7 +15,7 @@ function MyOrder() {
   return (
     <Layout>
       <div className='flex items-center justify-center relative w-80'>
-        <Link to="/nova-shop/#/my-orders" className='absolute left-0'>
+        <Link to="#/my-orders" className='absolute left-0'>
           <ChevronLeftIcon className="w-6 h-6 text-black cursor-pointer" />
         </Link>
         <h1 className="text-3xl font-semibold text-gray-800">My Order</h1>
