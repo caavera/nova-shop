@@ -13,12 +13,7 @@
 ✅ **Filtrado de productos** por nombre y categoría  
 ✅ **Carrito de compras** interactivo con vista previa  
 ✅ **Checkout dinámico** con almacenamiento de órdenes  
-✅ **Desplegado en GitHub Pages** 🚀  
-
----
-
-## 🎥 **Demo en Vivo**
-👉 **[Accede a Nova-Shop aquí](https://albertoBetancourt.github.io/nova-shop/)**  
+✅ **Desplegado en GitHub Pages** 🚀   
 
 ---
 
