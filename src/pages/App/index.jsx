@@ -27,7 +27,7 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <ShoppingCartProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/nova-shop">
         <AppRoutes />
         <Navbar/>
         <CheckoutSideMenu />
