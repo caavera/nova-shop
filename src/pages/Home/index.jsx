@@ -7,8 +7,18 @@ import ProductDetail from '../../components/ProductDetail'
 function Home() {
   const { 
     items,
-    setSearchByTitle
-} = useContext(ShoppingCartContext);
+    setSearchByTitle,
+    searchByTitle,
+    filteredItems
+  } = useContext(ShoppingCartContext);
+
+  const renderView = () => 
+    searchByTitle?.length > 0 
+      ? filteredItems?.length > 0 
+        ? filteredItems.map(item => <Card key={item.id} product={item} />) 
+        : <p className="text-gray-500 mt-10">No products found.</p>
+    : items?.map(item => <Card key={item.id} product={item} />);
+  
 
   return (
     <Layout>
@@ -24,11 +34,7 @@ function Home() {
       />
       {/* Mostrar los productos */}
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-screen-lg mx-auto place-items-center">
-        {
-          items?.map( item => (
-            <Card key={item.id} product={item} />
-          ))
-        }
+        { renderView() }
       </div>
       <ProductDetail />
     </Layout> 
