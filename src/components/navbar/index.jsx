@@ -1,17 +1,20 @@
 import { useContext, useState } from 'react';
 import { ShoppingBagIcon, Bars3Icon, XMarkIcon, ShoppingCartIcon } from "@heroicons/react/24/solid"; 
 import { ShoppingCartContext } from '../../Context';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 
 const activeLinkStyle = "underline underline-offset-4 text-blue-600 font-semibold transition-colors duration-200"; 
 const inactiveLinkStyle = "hover:text-blue-500 transition-colors duration-200"; 
 
 const Navbar = () => {
-    const { 
-        openCheckoutSideMenu, 
-        cartProducts
-    } = useContext(ShoppingCartContext);
+    const { openCheckoutSideMenu, cartProducts, setSearchByCategory } = useContext(ShoppingCartContext);
     const [menuOpen, setMenuOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const handleCategoryClick = (category) => {
+        setSearchByCategory(category);
+        navigate(category === "All" ? "/" : `/category/${category.toLowerCase()}`);
+    };
 
     return (
         <nav className="flex justify-between items-center fixed top-0 z-20 w-full py-4 px-6 text-sm font-light bg-white/80 backdrop-blur-md shadow-md">
@@ -20,18 +23,19 @@ const Navbar = () => {
                 {/* Logo y Nombre con Icono */}
                 <div className="flex items-center gap-2 font-semibold text-lg hover:scale-105 transition-transform cursor-pointer ml-3">
                     <ShoppingCartIcon className="w-7 h-7 text-blue-600" />
-                    <NavLink to="/" end>
+                    <NavLink to="/" end onClick={() => handleCategoryClick("All")}>
                         NovaShop
                     </NavLink>
                 </div>
 
-                {/* Menú de categorías - Más cercano al logo en pantallas grandes */}
+                {/* Menú de categorías */}
                 <ul className="hidden lg:flex items-center gap-4">
-                    { ["All", "Clothes", "Electronics", "Furnitures", "Toys", "Others"].map((category) => (
+                    {["All", "Clothes", "Electronics", "Furniture", "Shoes", "Miscellaneous"].map(category => (
                         <li key={category}>
                             <NavLink 
-                                to={category === "All" ? "/" : `/${category.toLowerCase()}`} 
+                                to={category === "All" ? "/" : `/category/${category.toLowerCase()}`} 
                                 className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                                onClick={() => handleCategoryClick(category)}
                             >
                                 {category}
                             </NavLink>
@@ -42,7 +46,6 @@ const Navbar = () => {
 
             {/* Contenedor derecho - Gestión de cuenta + Carrito */}
             <div className="flex items-center gap-6">
-                {/* Sección de usuario y carrito - Se muestra en pantallas medianas en adelante */}
                 <div className="hidden sm:flex items-center gap-4">
                     <p className="text-black/60">veracar111@gmail.com</p>
                     <NavLink to="/my-orders" end className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
@@ -79,18 +82,22 @@ const Navbar = () => {
                 <div className="absolute top-14 left-0 w-full bg-white shadow-md flex flex-col items-center py-4 lg:hidden">
                     {/* Categorías */}
                     <ul className="w-full text-center border-b pb-3">
-                        { ["All", "Clothes", "Electronics", "Furnitures", "Toys", "Others"].map((category) => (
+                        {["All", "Clothes", "Electronics", "Furniture", "Shoes", "Miscellaneous"].map(category => (
                             <li key={category} className="py-2">
                                 <NavLink 
-                                    to={category === "All" ? "/" : `/${category.toLowerCase()}`} 
+                                    to={category === "All" ? "/" : `/category/${category.toLowerCase()}`} 
                                     className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
-                                    onClick={() => setMenuOpen(false)}
+                                    onClick={() => { 
+                                        handleCategoryClick(category);
+                                        setMenuOpen(false);
+                                    }}
                                 >
                                     {category}
                                 </NavLink>
                             </li>
                         ))}
                     </ul>
+
                     {/* Gestión de cuenta y órdenes */}
                     <ul className="w-full text-center pt-3 sm:hidden">
                         <li className="py-2">
@@ -114,7 +121,6 @@ const Navbar = () => {
                     </ul>
                 </div>
             )}
-
         </nav>
     );
 };
