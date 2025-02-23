@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
-import { ShoppingBagIcon, Bars3Icon, XMarkIcon, ShoppingCartIcon } from "@heroicons/react/24/solid"; 
-import { ShoppingCartContext } from '../../Context';
-import { NavLink, useNavigate } from 'react-router';
+import { useContext, useState } from "react";
+import { ShoppingBagIcon, Bars3Icon, XMarkIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
+import { ShoppingCartContext } from "../../Context";
+import { NavLink, useNavigate } from "react-router";
 
-const activeLinkStyle = "underline underline-offset-4 text-blue-600 font-semibold transition-colors duration-200"; 
-const inactiveLinkStyle = "hover:text-blue-500 transition-colors duration-200"; 
+const activeLinkStyle = "text-white border-b-2 border-white pb-1";
+const inactiveLinkStyle = "text-gray-300 hover:text-white transition-colors duration-200";
 
 const Navbar = () => {
     const { 
@@ -22,22 +22,23 @@ const Navbar = () => {
     const handleCategoryClick = (category) => {
         setSearchByCategory(category);
         navigate(category === "All" ? "/" : `/category/${category.toLowerCase()}`);
+        setMenuOpen(false); // Cierra el menú en móvil al seleccionar una categoría
     };
     
     // Sign out
-    const sigOut = localStorage.getItem('sign-out')
-    const parsedSignOut = JSON.parse(sigOut)
-    const isUserSignOut = signOut  || parsedSignOut
+    const sigOut = localStorage.getItem("sign-out");
+    const parsedSignOut = JSON.parse(sigOut);
+    const isUserSignOut = signOut || parsedSignOut;
 
     const handleSignOut = () => {
-        const stringifiedSignOut = JSON.stringify(true)
-        localStorage.setItem('sign-out', stringifiedSignOut)
-        setSignOut(true)
-    }
+        const stringifiedSignOut = JSON.stringify(true);
+        localStorage.setItem("sign-out", stringifiedSignOut);
+        setSignOut(true);
+    };
 
     const renderViewDesktop = () => (
-        <>
-            {!isUserSignOut && <p className="text-black/60">{account?.email || "example@gmail.com"}</p>}
+        <div className="flex gap-6">
+            {!isUserSignOut && <p className="text-gray-400">{account?.email || "example@gmail.com"}</p>}
             <NavLink to="/my-orders" end className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                 My Orders
             </NavLink>
@@ -53,54 +54,84 @@ const Navbar = () => {
             >
                 {isUserSignOut ? "Sign In" : "Sign Out"}
             </NavLink>
-        </>
+        </div>
     );
 
     const renderViewMobile = () => (
-        <>
+        <ul className="w-full text-center space-y-3">
+            {/* Categorías en el menú móvil */}
+            <li className="border-b border-gray-700 pb-3">
+                <ul className="flex flex-col gap-3">
+                    {["All", "Clothes", "Electronics", "Furniture", "Shoes", "Miscellaneous"].map(category => (
+                        <li key={category}>
+                            <NavLink 
+                                to={category === "All" ? "/" : `/category/${category.toLowerCase()}`} 
+                                className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                                onClick={() => {
+                                    handleCategoryClick(category);
+                                    setMenuOpen(false); // Cierra el menú al hacer clic
+                                }}
+                            >
+                                {category}
+                            </NavLink>
+                        </li>
+                    ))}
+                </ul>
+            </li>
+            
+            {/* Opciones de cuenta */}
             {!isUserSignOut && (
-                <li className="py-2">
-                    <p className="text-black/60">{account?.email || "example@gmail.com"}</p>
-                </li>
+                <li className="text-gray-400">{account?.email || "example@gmail.com"}</li>
             )}
-            <li className="py-2">
-                <NavLink to="/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+            <li>
+                <NavLink 
+                    to="/my-orders" 
+                    className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                    onClick={() => setMenuOpen(false)}
+                >
                     My Orders
                 </NavLink>
             </li>
             {!isUserSignOut && (
-                <li className="py-2">
-                    <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                <li>
+                    <NavLink 
+                        to="/my-account" 
+                        className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                        onClick={() => setMenuOpen(false)}
+                    >
                         My Account
                     </NavLink>
                 </li>
             )}
-            <li className="py-2">
+            <li>
                 <NavLink 
                     to="/sign-in" 
                     className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
-                    onClick={handleSignOut}
+                    onClick={() => {
+                        handleSignOut();
+                        setMenuOpen(false);
+                    }}
                 >
                     {isUserSignOut ? "Sign In" : "Sign Out"}
                 </NavLink>
             </li>
-        </>
+        </ul>
     );
+    
     
 
     return (
-        <nav className="flex justify-between items-center fixed top-0 z-20 w-full py-4 px-6 text-sm font-light bg-white/80 backdrop-blur-md shadow-md">
-            {/* Contenedor izquierdo - Logo + Categorías */}
-            <div className="flex items-center gap-6 ml-1">
-                {/* Logo y Nombre con Icono */}
-                <div className="flex items-center gap-2 font-semibold text-lg hover:scale-105 transition-transform cursor-pointer ml-3">
-                    <ShoppingBagIcon className="w-7 h-7 text-blue-600" />
-                    <NavLink to="/" end onClick={() => handleCategoryClick("All")}>
+        <nav className="flex justify-between items-center fixed top-0 z-20 w-full py-4 px-6 bg-black text-white shadow-md">
+            {/* Logo + Categorías */}
+            <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2 font-semibold text-lg cursor-pointer">
+                    <ShoppingBagIcon className="w-7 h-7 text-white" />
+                    <NavLink to="/" end onClick={() => handleCategoryClick("All")} className="hover:text-gray-300">
                         NovaShop
                     </NavLink>
                 </div>
 
-                {/* Menú de categorías */}
+                {/* Categorías Desktop */}
                 <ul className="hidden lg:flex items-center gap-4">
                     {["All", "Clothes", "Electronics", "Furniture", "Shoes", "Miscellaneous"].map(category => (
                         <li key={category}>
@@ -116,55 +147,34 @@ const Navbar = () => {
                 </ul>
             </div>
 
-            {/* Contenedor derecho - Gestión de cuenta + Carrito */}
+            {/* Account + Cart Desktop */}
             <div className="flex items-center gap-6">
                 <div className="hidden sm:flex items-center gap-4">
                     {renderViewDesktop()}
                 </div>
 
-                {/* Carrito - Siempre visible */}
+                {/* Shopping Cart */}
                 <div 
                     className="flex gap-1 items-center cursor-pointer hover:scale-105 transition-transform"
                     onClick={openCheckoutSideMenu}
                 >
-                    <ShoppingCartIcon className="w-6 h-6" />
-                    <p className="text-xs">{ cartProducts.length }</p>
+                    <ShoppingCartIcon className="w-6 h-6 text-white" />
+                    <p className="text-xs text-gray-300">{cartProducts.length}</p>
                 </div>
             </div>
 
-            {/* Icono de menú hamburguesa - Mobile */}
+            {/* Mobile Menu Button */}
             <button 
-                className="absolute left-3 lg:hidden focus:outline-none"
+                className="lg:hidden focus:outline-none"
                 onClick={() => setMenuOpen(!menuOpen)}
             >
-                {menuOpen ? <XMarkIcon className="w-7 h-7"/> : <Bars3Icon className="w-7 h-7"/>}
+                {menuOpen ? <XMarkIcon className="w-7 h-7 text-white" /> : <Bars3Icon className="w-7 h-7 text-white" />}
             </button>
 
-            {/* Menú desplegable en móvil */}
+            {/* Mobile Menu */}
             {menuOpen && (
-                <div className="absolute top-14 left-0 w-full bg-white shadow-md flex flex-col items-center py-4 lg:hidden">
-                    {/* Categorías */}
-                    <ul className="w-full text-center border-b pb-3">
-                        {["All", "Clothes", "Electronics", "Furniture", "Shoes", "Miscellaneous"].map(category => (
-                            <li key={category} className="py-2">
-                                <NavLink 
-                                    to={category === "All" ? "/" : `/category/${category.toLowerCase()}`} 
-                                    className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
-                                    onClick={() => { 
-                                        handleCategoryClick(category);
-                                        setMenuOpen(false);
-                                    }}
-                                >
-                                    {category}
-                                </NavLink>
-                            </li>
-                        ))}
-                    </ul>
-
-                    {/* Gestión de cuenta y órdenes */}
-                    <ul className="w-full text-center pt-3 sm:hidden">
-                        {renderViewMobile()}
-                    </ul>
+                <div className="absolute top-14 left-0 w-full bg-black shadow-md flex flex-col items-center py-4">
+                    {renderViewMobile()}
                 </div>
             )}
         </nav>
