@@ -80,41 +80,41 @@ function SignIn() {
 
   const renderCreateUserInfo = () => (
     <form ref={form} className='flex flex-col gap-4 w-80'>
-      <div className='font-light text-sm'>
-        <label htmlFor="name" className='font-light text-sm'>Your name:</label>
+      <div className='flex flex-col gap-1'>
+        <label htmlFor="name" className='text-sm font-medium text-gray-800'>Your name:</label>
         <input 
           type="text" 
           id='name'
           name='name' 
           defaultValue={parsedAccount?.name}
           placeholder='Peter'
-          className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+          className='w-full rounded-lg border border-black px-4 py-2 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-black'
         />
       </div>
       <div className='flex flex-col gap-1'>
-        <label htmlFor="email">Your email:</label>
+        <label htmlFor="email" className='text-sm font-medium text-gray-800'>Your email:</label>
         <input 
-          type="text"
+          type="email"
           id='email'
           name='email'
           defaultValue={parsedAccount?.email}
-          placeholder='hi@helloworld.com'
-          className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+          placeholder='hello@world.com'
+          className='w-full rounded-lg border border-black px-4 py-2 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-black'
         />
       </div>
       <div className='flex flex-col gap-1'>
-        <label htmlFor="password" className='font-light text-sm'>Your password:</label>
+        <label htmlFor="password" className='text-sm font-medium text-gray-800'>Your password:</label>
         <input 
           type="password" 
           id='password'
           name='password' 
           defaultValue={parsedAccount?.password}
           placeholder='*******'
-          className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+          className='w-full rounded-lg border border-black px-4 py-2 placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-black'
         />
       </div>
       <button 
-        className='bg-black text-white w-full rounded-lg py-3'
+        className='bg-black text-white w-full rounded-lg py-3 mt-4 hover:bg-gray-900 transition-all'
         onClick={createAnAccount}
       >
         Create
@@ -124,7 +124,9 @@ function SignIn() {
 
   return (
     <Layout>
-      <h1 className='font-medium text-xl text-center mb-6 w-80'>Welcome</h1>
+      <div className='flex items-center justify-center relative w-full max-w-4xl mx-auto mt-8 mb-6'>
+        <h1 className="text-3xl font-semibold text-gray-800">Welcome</h1>
+      </div>
       {view === 'create-user-info' ? renderCreateUserInfo() : renderLogIn()}
     </Layout> 
   );

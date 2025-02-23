@@ -80,7 +80,7 @@ const CheckoutSideMenu = () => {
                 </p>
                 <Link to="/my-orders/last">
                     <button 
-                        className="w-full mt-4 py-2 text-white bg-black hover:bg-blue-700 transition-all duration-300 font-medium rounded-lg shadow-md"
+                        className="w-full mt-4 py-2 text-white bg-black hover:bg-gray-800 transition-all duration-300 font-medium rounded-lg shadow-md"
                         onClick={() => handleCheckout()}
                     >
                         Checkout
