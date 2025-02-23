@@ -1,34 +1,42 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect } from 'react';
 
-export const ShoppingCartContext = createContext()
+export const ShoppingCartContext = createContext();
 
 export const initializeLocalStorage = () => {
-    const accountInLocalStorage = localStorage.getItem('account')
-    const signOutInLocalStorage = localStorage.getItem('sign-out')
-    let parsedAccount
-    let parsedSignOut
+    const accountInLocalStorage = localStorage.getItem('account');
+    const signOutInLocalStorage = localStorage.getItem('sign-out');
 
-    if(!accountInLocalStorage) {
-        localStorage.setItem('account', JSON.stringify({}))
-        parsedAccount = {}
-    }else {
-        parsedAccount = JSON.parse(accountInLocalStorage)
+    if (!accountInLocalStorage) {
+        localStorage.setItem('account', JSON.stringify({}));
     }
 
-    if(!signOutInLocalStorage) {
-        localStorage.setItem('sign-out', JSON.stringify(false))
-        parsedSignOut = false
-    } else {
-        parsedSignOut = JSON.parse(signOutInLocalStorage)
+    if (!signOutInLocalStorage) {
+        localStorage.setItem('sign-out', JSON.stringify(false));
     }
-}
+};
 
 export const ShoppingCartProvider = ({ children }) => {
-    // My account
-    const [account, setAccount] = useState({})
+    // Obtener `account` desde localStorage al montar
+    const [account, setAccount] = useState(() => {
+        const storedAccount = localStorage.getItem('account');
+        return storedAccount ? JSON.parse(storedAccount) : {};
+    });
 
-    // Sign out
-    const [signOut, setSignOut] = useState(false)
+    // Sincronizar `account` con `localStorage`
+    useEffect(() => {
+        localStorage.setItem('account', JSON.stringify(account));
+    }, [account]);
+
+    // Obtener `signOut` desde localStorage
+    const [signOut, setSignOut] = useState(() => {
+        const storedSignOut = localStorage.getItem('sign-out');
+        return storedSignOut ? JSON.parse(storedSignOut) : false;
+    });
+
+    // Sincronizar `signOut` con `localStorage`
+    useEffect(() => {
+        localStorage.setItem('sign-out', JSON.stringify(signOut));
+    }, [signOut]);
 
     // Shopping Cart - Add products
     const [cartProducts, setCartProducts] = useState([]);
@@ -49,7 +57,7 @@ export const ShoppingCartProvider = ({ children }) => {
     // Shopping Cart - total price
     const getShoppingCartTotalPrice = () => {
         return cartProducts.reduce((sum, product) => sum + product.price, 0);
-    }
+    };
 
     // Shopping Cart - Order
     const [order, setOrder] = useState([]);
@@ -82,7 +90,7 @@ export const ShoppingCartProvider = ({ children }) => {
     // Products - filter by category
     const [searchByCategory, setSearchByCategory] = useState(null);
 
-    // Filter produts on category or title changes
+    // Filtrar productos en base a categoría o título
     useEffect(() => {
         if (items) {
             let filtered = items;
@@ -130,5 +138,5 @@ export const ShoppingCartProvider = ({ children }) => {
         }}>
             {children}
         </ShoppingCartContext.Provider>
-    )
-}
+    );
+};

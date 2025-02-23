@@ -12,7 +12,8 @@ const Navbar = () => {
         cartProducts, 
         setSearchByCategory,
         setSignOut,
-        signOut
+        signOut,
+        account,
     } = useContext(ShoppingCartContext);
 
     const [menuOpen, setMenuOpen] = useState(false);
@@ -34,81 +35,58 @@ const Navbar = () => {
         setSignOut(true)
     }
 
-    const renderViewDesktop = () => {
-        if (isUserSignOut) {
-            return (
-                <NavLink 
-                    to="/sign-in" 
-                    className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
-                    onClick={ () => handleSignOut() }
-                >
-                    Sign Out
+    const renderViewDesktop = () => (
+        <>
+            {!isUserSignOut && <p className="text-black/60">{account?.email || "example@gmail.com"}</p>}
+            <NavLink to="/my-orders" end className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                My Orders
+            </NavLink>
+            {!isUserSignOut && (
+                <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                    My Account
                 </NavLink>
-            )
-        } else {
-            return (
-                <>
-                    <p className="text-black/60">example@gmail.com</p>
-                    <NavLink to="/my-orders" end className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                        My Orders
-                    </NavLink>
+            )}
+            <NavLink 
+                to="/sign-in" 
+                className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                onClick={handleSignOut}
+            >
+                {isUserSignOut ? "Sign In" : "Sign Out"}
+            </NavLink>
+        </>
+    );
+
+    const renderViewMobile = () => (
+        <>
+            {!isUserSignOut && (
+                <li className="py-2">
+                    <p className="text-black/60">{account?.email || "example@gmail.com"}</p>
+                </li>
+            )}
+            <li className="py-2">
+                <NavLink to="/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
+                    My Orders
+                </NavLink>
+            </li>
+            {!isUserSignOut && (
+                <li className="py-2">
                     <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
                         My Account
                     </NavLink>
-                    <NavLink 
-                        to="/sign-in" 
-                        className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
-                        onClick={ () => handleSignOut() }
-                    >
-                        Sign Out
-                    </NavLink>
-                </>
-            )
-        }
-    }
-
-    const renderViewMobile = () => {
-        if (isUserSignOut) {
-            return (
-                <li className="py-2">
-                    <NavLink 
-                        to="/sign-in" 
-                        className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
-                        onClick={ () => handleSignOut() }
-                    >
-                        Sign Out
-                    </NavLink>
                 </li>
-            )
-        } else {
-            return (
-                <>
-                    <li className="py-2">
-                        <p className="text-black/60">example@gmail.com</p>
-                    </li>
-                    <li className="py-2">
-                        <NavLink to="/my-orders" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                            My Orders
-                        </NavLink>
-                    </li>
-                    <li className="py-2">
-                        <NavLink to="/my-account" className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}>
-                            My Account
-                        </NavLink>
-                    </li>
-                    <li className="py-2">
-                        <NavLink 
-                            to="/sign-in" 
-                            className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
-                            onClick={ () => handleSignOut() }
-                        >
-                            Sign Out
-                        </NavLink>
-                    </li>
-                </>
-            )
-        }
-    }
+            )}
+            <li className="py-2">
+                <NavLink 
+                    to="/sign-in" 
+                    className={({ isActive }) => isActive ? activeLinkStyle : inactiveLinkStyle}
+                    onClick={handleSignOut}
+                >
+                    {isUserSignOut ? "Sign In" : "Sign Out"}
+                </NavLink>
+            </li>
+        </>
+    );
+    
 
     return (
         <nav className="flex justify-between items-center fixed top-0 z-20 w-full py-4 px-6 text-sm font-light bg-white/80 backdrop-blur-md shadow-md">

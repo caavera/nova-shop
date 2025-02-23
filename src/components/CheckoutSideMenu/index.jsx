@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { Link } from 'react-router';
 import { ShoppingCartContext } from '../../Context';
+import { Link } from 'react-router';
 import { motion } from "framer-motion";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import OrderCard from "../../components/OrderCard";
