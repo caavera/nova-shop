@@ -3,7 +3,7 @@
 ⚡ **E-commerce moderno** desarrollado con **React + Vite**, con integración de búsqueda, filtrado por categorías y carrito de compras.
 
 ## 🎥 **Demo en Vivo**
-👉 **[Accede a Nova-Shop aquí](https://albertoBetancourt.github.io/nova-shop/)**  
+👉 **[Accede a Nova-Shop aquí](https://caavera.github.io/nova-shop/)**  
 
 ---
 

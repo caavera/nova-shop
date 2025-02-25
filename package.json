@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/albertoBetancourt/nova-shop",
+  "homepage": "https://caavera.github.io/nova-shop",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
